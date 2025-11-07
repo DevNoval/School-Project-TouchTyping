@@ -63,3 +63,10 @@ list of all update and version
 - Added Icon in tab
 - Rewrited the code to look more organized
 - Added more words to JSON file
+
+## 1.2 - 7.11.25
+- Added smooth caret
+- Increase font size for readability
+- Scoreboard are now hidden and only visible after finish typing
+- Improvise layout
+- Added more words to JSON file
