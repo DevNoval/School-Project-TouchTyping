@@ -178,6 +178,7 @@ function handleSpace() {
     if (curEl) curEl.classList.add("wrong");
     typingInput.value += " ";
     typingInput.classList.add("input-wrong");
+    STATE.totalKeystrokes++;
   }
   updateAccuracy(); updateWPM(); updateFooter();
   typingInput.focus();
@@ -290,8 +291,7 @@ function updateFooter() {
     const remaining = Math.max(0, (STATE.timeLimit || STATE.activeTimerSeconds) - (STATE.elapsed || 0));
     wordsLeftId.textContent = formatTime(remaining);
   } else {
-    const wordsLeft = Math.max(0 + STATE.currentIndex);
-    wordsLeftId.textContent = `${wordsLeft}/${STATE.wordsList.length}`;
+    wordsLeftId.textContent = `${STATE.currentIndex}/${STATE.wordsList.length}`;
   }
 }
 
