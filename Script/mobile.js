@@ -1,129 +1,152 @@
-/* ============================ mobile-script.js ============================ */
+/* ============================ mobile-script.js (Mobile Fix) ============================ */
 
 /* * Keterangan: 
- * Skrip ini menggantikan logika input dari script.js agar stabil pada 
- * perangkat mobile dengan mengandalkan event 'input' dan mendeteksi spasi.
+ * Menggantikan event listener standar dengan logika yang dioptimalkan 
+ * untuk keyboard virtual (Android/iOS).
  */
 
-// Hapus event listener lama dari script.js
-typingInput.removeEventListener('input', onType);
-typingInput.removeEventListener('keydown', onKeyDown);
+// 1. Hapus event listener desktop yang mungkin konflik
+if (typeof onType === "function") typingInput.removeEventListener('input', onType);
+if (typeof onKeyDown === "function") typingInput.removeEventListener('keydown', onKeyDown);
 
-// Variabel untuk membantu Keystroke Counting pada mobile
+// Variabel pelacak panjang teks untuk menghitung keystroke di HP
 let lastValueLength = 0;
 
-/* ---------- Mobile-Friendly Input Handler (Override for onType) ---------- */
+/* ---------- Handler Utama (Pengganti onType) ---------- */
 function onMobileType(e) {
     let value = typingInput.value;
     const target = STATE.wordsList[STATE.currentIndex] || '';
 
-    if (!STATE.started && value.length) startTimer();
+    // Mulai timer jika belum mulai
+    if (!STATE.started && value.length > 0) startTimer();
 
-    // 1. Keystroke Counting yang lebih baik untuk mobile
+    // --- Logika Deteksi Spasi (Word Submission) ---
+    // Cek apakah karakter terakhir adalah spasi
+    if (value.length > 0 && value.slice(-1) === ' ') {
+        const typed = value.trim(); 
+        
+        // Panggil handler spasi
+        handleSpaceMobile(typed);
+        
+        // Update pelacak panjang setelah manipulasi di handleSpaceMobile
+        lastValueLength = typingInput.value.length;
+        return; 
+    }
+
+    // --- Logika Hitung Keystroke (WPM/Akurasi) ---
     if (value.length > lastValueLength) {
-        // Asumsi: Penambahan karakter (ketik)
+        // User mengetik karakter baru
         STATE.totalKeystrokes++; 
         
-        const lastChar = value.slice(-1);
-        const correctChar = target[value.length - 1];
+        const inputIndex = value.length - 1;
+        const lastChar = value[inputIndex];
+        const correctChar = target[inputIndex];
 
-        // Jika karakter terakhir benar (dan bukan spasi)
-        if (lastChar !== ' ' && lastChar === correctChar) {
+        // Hitung correct keystroke jika cocok
+        if (lastChar === correctChar) {
             STATE.correctKeystrokes++;
             playSound(typeSound);
-        } else if (lastChar !== ' ' && lastChar !== correctChar) {
-            // Jika salah
+        } else {
             playSound(errorSound);
         }
     } else if (value.length < lastValueLength) {
-        // Backspace
+        // User menghapus (Backspace)
         STATE.totalKeystrokes++; 
-        // Logika sederhana untuk mengurangi correctKeystrokes (jika menghapus karakter benar)
-        const deletedChar = target[lastValueLength - 1];
-        if (deletedChar && typingInput.value[lastValueLength - 1] === deletedChar) {
-             STATE.correctKeystrokes--;
+        // Kurangi correctKeystrokes jika yang dihapus adalah karakter benar
+        const deletedIndex = lastValueLength - 1;
+        if (target[deletedIndex] && lastValueLength <= target.length + 1) {
+             // Logika sederhana: anggap pengurangan poin jika menghapus
+             STATE.correctKeystrokes = Math.max(0, STATE.correctKeystrokes - 1);
         }
         playSound(typeSound);
     }
+    
+    // Simpan panjang saat ini untuk event berikutnya
     lastValueLength = value.length;
 
-    // 2. Spacebar Handling (Word Submission)
-    if (value.endsWith(' ')) {
-        // Pemicu kata selesai (handleSpaceMobile)
-        const typed = value.trim();
-        handleSpaceMobile(typed);
-        return;
-    }
-    
-    // 3. Update Display
+    // Update tampilan huruf (warna merah/hijau/kuning)
     updateDisplay(value);
 }
 
-/* ---------- Mobile-Friendly Space Handler (Pengganti handleSpace) ---------- */
+/* ---------- Handler Spasi Mobile ---------- */
 function handleSpaceMobile(typed) {
     const target = STATE.wordsList[STATE.currentIndex] || "";
     const curEl = document.querySelector(`.word[data-index="${STATE.currentIndex}"]`);
     
-    if (!typed.length) { 
-        typingInput.classList.remove("input-wrong");
+    // Jika input hanya spasi kosong, reset
+    if (typed.length === 0) {
         typingInput.value = "";
-        lastValueLength = 0;
+        typingInput.classList.remove("input-wrong");
         return;
     }
 
     const isCorrect = typed === target;
 
     if (isCorrect) {
-        STATE.correctKeystrokes++;
+        // === KATA BENAR ===
+        STATE.correctKeystrokes++; // Poin untuk Spasi
+        
+        // Ubah warna kata jadi hijau (correct)
         if (curEl) {
             curEl.classList.remove("current", "wrong");
             curEl.classList.add("correct");
             curEl.querySelectorAll("span").forEach(span => {
+                // Pastikan warna hijau diterapkan
                 if (!span.classList.contains('caret')) span.style.color = "var(--success)";
             });
         }
-        STATE.currentIndex++;
-        typingInput.value = "";
-        lastValueLength = 0; 
+        
+        STATE.currentIndex++; // Pindah ke kata selanjutnya
+        typingInput.value = ""; // Bersihkan input
+        
     } else {
-        // Jika salah: Tandai salah, hitung 1 keystroke hukuman, dan pindah ke kata berikutnya.
+        // === KATA SALAH ===
         playSound(errorSound);
-
-        typingInput.value = typed;
-        lastValueLength = typed.length;
-
+        
+        // 1. Biarkan Spasi Terlihat!
+        // Ini kuncinya: kita tambahkan spasi kembali ke input agar user melihatnya
+        typingInput.value = typed + " "; 
+        
+        // 2. Tandai kata visual di atas sebagai salah
         if (curEl) curEl.classList.add("wrong");
+        
+        // 3. Beri feedback visual pada input box
+        typingInput.classList.add("input-wrong");
+        
+        // 4. Penalti Keystroke
         STATE.totalKeystrokes++; 
-        typingInput.classList.add("input-wrong"); 
+        
+        // KITA TIDAK PINDAH KATA (STATE.currentIndex tetap)
     }
     
-    // Pindah ke kata berikutnya
+    // Cek apakah tes selesai
     if (STATE.mode !== "timer" && STATE.currentIndex >= STATE.wordsList.length) {
         stopTimer();
         typingInput.blur();
         typingInput.disabled = true;
     } else {
          if (STATE.mode === "timer" && isCorrect) {
+            // Render ulang hanya jika kata benar (untuk efek slide baris)
             renderWords(true); 
-         } else {
-            document.querySelectorAll(".word").forEach(word => word.classList.toggle("current", +word.dataset.index === STATE.currentIndex));
-         }
+         } 
+         // else: tidak perlu render ulang jika salah, cukup update style
     }
 
+    // Update UI Statistik
     updateCaret();
     updateAccuracy(); 
     updateWPM(); 
     updateFooter();
-    typingInput.focus();
+    
+    // Pastikan scroll mengikuti caret jika perlu
+    if (!isCorrect) updateDisplay(typingInput.value); 
 }
 
-/* ---------- Re-bind Event Listener Baru ---------- */
+/* ---------- Pasang Event Listener ---------- */
+// Gunakan event 'input' yang paling stabil di Android/iOS
 typingInput.addEventListener('input', onMobileType);
 
-// Tambahkan event keydown minimal untuk mencegah pengiriman form pada Enter
+// Cegah tombol Enter (Go/Search) mengirim form
 typingInput.addEventListener('keydown', (e) => {
-    // Mencegah keyboard virtual mengirim form saat tombol Enter/Go ditekan
-    if (e.key === "Enter") {
-        e.preventDefault();
-    }
+    if (e.key === "Enter") e.preventDefault();
 });
