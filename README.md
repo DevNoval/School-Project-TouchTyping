@@ -1,10 +1,12 @@
 # Speed Writer Touch Typing
+Simple and minimal typing test. Practice and test your speed
 
 Visit the webpage: https://DevNoval.github.io/SpeedWriter
 
-![Speed writer Homepage](Assets/img/Screenshot 2025-12-26 125546.png)
+![Speed writer Homepage](Assets/img/Screenshot_2025-12-26_125546.png)
 
-![Play test](Assets/img/Screenshot 2025-12-26 202701.png)
+![Play test](Assets/img/Screenshot_2025-12-26_202701.png)
+
 
 list of all update and version
 
