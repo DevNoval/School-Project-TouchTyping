@@ -1,6 +1,12 @@
 # Speed Writer Touch Typing
+Simple and minimal typing test. Practice and test your speed
 
-Visit the webpage: https://DevNoval.github.io/School-Project-TouchTyping
+Visit the webpage: https://DevNoval.github.io/SpeedWriter
+
+![Speed writer Homepage](Assets/img/Screenshot_2025-12-26_125546.png)
+
+![Play test](Assets/img/Screenshot_2025-12-26_202701.png)
+
 
 list of all update and version
 
@@ -70,3 +76,19 @@ list of all update and version
 - Scoreboard are now hidden and only visible after finish typing
 - Improvise layout
 - Added more words to JSON file
+
+## 1.3 - 28.11.25
+- Added Homepage
+- Responsive layout for different screen
+- Added Settings and Tutorial to homepage
+- Bug fixes
+- Added more words to JSON file
+
+## 1.4 - 26.12.25
+- Fix some bug in scoreboard
+- Fix settings not showing in homepage
+- Remove help button
+- Improvise tutorial page
+- Small UI Changes
+- Added more words to JSON file
+- Organizing file structures

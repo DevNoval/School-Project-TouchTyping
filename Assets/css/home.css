@@ -1,0 +1,42 @@
+.text {
+  font-size: 0.7em;
+  border-right: 2px solid;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 12s steps(103), cursor .4s step-end infinite alternate;
+}
+
+h1 {
+  background: var(--card);
+  font-size: 3rem; 
+  padding: 1rem; 
+  border-radius: 16px;
+}
+
+.home-menu .btn {
+  background: var(--card);
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 12rem;
+  margin-block: 4px;
+}
+
+.home-menu .btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+} 
+
+.settings-box {
+  margin-bottom: 10px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+}
+
+@keyframes cursor { 50% { border-color: transparent}}
+
+@keyframes typing {
+  from {width: 0}
+}

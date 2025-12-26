@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>⌨️ Speed Writer</title>
+  <link rel="stylesheet" href="../Assets/css/styles.css">
+  <link rel="stylesheet" href="../Assets/css/main.css">  
+  <link rel="stylesheet" href="../Assets/css/mobile.css">
+</head>
+<body class="theme-light">
+  <div class="app">
+
+    <!--Header webpage-->
+    <header class="app-header">
+      <a href="../Index.html"><h1>Speed Writer</h1></a>
+    </header>
+
+    <!--Main-->
+    <main class="main">
+
+      <!--Control panel-->
+      <div class="controls">
+        <div class="counter">
+          <h2><span id="wordsLeft">0</span></h2>
+        </div>
+        
+        <div id="settingsPanel" class="settings-panel hidden">
+          
+          <!--Language-->
+          <div class="settings-group">
+            <button id="langBtn" class="btn" title="Ganti bahasa">🇮🇩 Bahasa</button>
+          </div>
+
+          <!--Mode selection-->
+          <div class="settings-group">
+            <select id="modeSelect" class="btn" title="Ganti mode">
+              <option value="quote">💬Quotes</option>
+              <option value="words">⌨️Words</option>
+              <option value="timer">🕛Timer</option>
+            </select>
+          </div>
+
+          <!--Count selection-->
+          <div class="settings-group">
+            <select id="countSelect" class="btn" title="Atur hitungan">
+              <option value="option1"></option>
+              <option value="option2"></option>
+              <option value="option3"></option>
+            </select>
+          </div>
+
+          <div class="settings-group">
+            <select id="fontSize" class="btn" title="Ukuran font">
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+
+          <!--Audio-->
+          <div class="settings-group">
+            <button id="audioBtn" class="btn" title="Putar audio">🔇</button>
+          </div>
+
+          <!--Theme-->
+          <div class="settings-group">
+            <button id="themeBtn" class="btn" title="Ganti tema">☀️</button>
+          </div>
+
+        </div>
+
+        <button id="settingsBtn" class="btn" title="Pengaturan">⚙️</button>
+        <button id="restartBtn" class="btn primary">Restart</button>
+      </div>
+
+      <!--Test area-->
+      <section class="test-area">
+        <div id="wordsContainer" class="words-container" aria-live="polite"></div>
+        <input id="typingInput" class="typing-input" placeholder="Ketik teks disini..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+      </section>
+    </main>
+
+    <!--Footer-->
+    <footer class="footer">
+      <small>Mode: <span id="modeLabel">Kata Acak</span></small>
+    </footer>
+  </div>
+
+        <!--Scoreboard-->
+  <div id="scorePopup" class="modal hidden">
+    <div class="score-item">
+      <h2>Score:</h2>
+      <p>WPM: <span id="wpm">0</span></p>
+      <p>Waktu: <span id="time">0</span></p>
+      <p>Akurasi: <span id="accuracy">100</span>%</p>
+      <button id="closeBtn" class="btn">Close</button>
+      <button id="restartBtnScore" class="btn primary">Restart</button>
+    </div>
+  </div>
+
+  <!--Javascript-->
+  <script src="../Assets/script/config.js"></script>
+  <script src="../Assets/script/setting.js"></script>
+  <script src="../Assets/script/script.js"></script>
+</body>
+</html>

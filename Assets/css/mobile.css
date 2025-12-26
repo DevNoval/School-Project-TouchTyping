@@ -1,0 +1,82 @@
+/* ---------- Responsif ---------- */
+@media (max-width: 1080px) {
+  .main { flex-direction: column; }
+  .modal { width: 100%; }
+  .control { flex-wrap: wrap;}
+  .modal-content {padding-inline: 5%;}
+}
+
+@media (max-width: 720px) {
+  body { font-size:1rem; }
+  .app-header { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding-bottom: 5px;
+    margin-bottom: 4rem;
+  }
+
+  .app {
+    display:block;
+  }
+  
+  h1 { 
+    margin: 0; 
+    width: 100%; 
+  }
+  
+  .counter {
+    width: 100%;
+    font-size: 0.9em;
+    top: 0;
+  }
+
+  .controls { 
+    width: 100%; 
+    justify-content: flex-end;
+    flex-wrap: wrap; 
+  }
+  
+  .settings-panel { 
+    top: 100%; 
+    right: 0; 
+    left: auto; 
+    min-width: 250px;
+    position: absolute; 
+    background: var(--card); 
+    margin-top: 16px;
+    justify-content: space-between;
+    transform: translateY(-10%);
+  }
+  
+  .settings-group {
+    width: 48%;
+    margin-bottom: 5px; 
+  }
+  
+  .settings-group .btn, 
+  .settings-group select {
+    width: 100%; 
+  }
+
+  .caret {
+    width: 1px;
+  }
+
+  .type-container {
+    width: 300px;
+  }
+
+  .text {
+    border-right: none;
+    width: 100%;
+    white-space: wrap;
+    text-align: center;
+    overflow: hidden;
+    animation: none;
+  }
+  
+  /* ---------- Ukuran Font ---------- */
+    .font-small { --word-font-size: 1em; --input-font-size: 0.8em; }
+    .font-medium { --word-font-size: 1.2em; --input-font-size: 1em; }
+    .font-large { --word-font-size: 1.6em; --input-font-size: 1.2em; }
+}
