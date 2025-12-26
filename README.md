@@ -70,3 +70,10 @@ list of all update and version
 - Scoreboard are now hidden and only visible after finish typing
 - Improvise layout
 - Added more words to JSON file
+
+## 1.3 - 28.11.25
+- Added Homepage
+- Responsive layout for different screen
+- Added Settings and Tutorial to homepage
+- Bug fixes
+- Added more words to JSON file
