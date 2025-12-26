@@ -1,0 +1,218 @@
+/* ======================== styles.css (ringkas & rapi) ======================== */
+
+/* ---------- Font ---------- */
+@font-face {
+  font-family: 'FiraCode';
+  src: url(../fonts/FiraCode-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ---------- Tema ---------- */
+:root {
+  --bg: #fff;
+  --text: #111827;
+  --card: #f3f4f6;
+  --accent: #ffd800;
+  --success: #16a34a;
+  --danger: #ef4444;
+  --hover: #e9e9e9;
+  --bgtrans: #dadadaad;
+}
+
+body {
+  font-family: 'FiraCode', system-ui, Arial;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+  font-size: 1.2em;
+}
+
+body.theme-dark {
+  --bg: #0b1220;
+  --text: #e6eef8;
+  --card: #101927;
+  --accent: #ffd800;
+  --success: #34d399;
+  --danger: #fb7185;
+  --hover: #1b2330;
+  --bgtrans: #0b1220db;
+}
+
+.home-page h1 {
+  background: var(--card); padding: 0.5rem 0.8rem; border-radius: 16px;
+}
+
+.bgimg {
+  background-image: url('../img/background.jpg');       /* Photo by Piotr Baranowski: https://www.pexels.com/photo/black-and-white-photography-of-a-vintage-computer-22763683/ */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.text {
+  font-size: 0.7em;
+  border-right: 2px solid;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 12s steps(103), cursor .4s step-end infinite alternate;
+}
+
+.home-page {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  font-size: 1.2em;
+  background: var(--bgtrans);
+  backdrop-filter: blur(12px);
+}
+
+.home-menu .btn {
+  background: var(--card);
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 12rem;
+  margin-block: 4px;
+}
+
+.home-menu .btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+} 
+
+.settings-box {
+  margin-bottom: 10px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; 
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
+}
+
+.modal:not(.hidden) {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-card {
+  background: var(--card);
+  font-size: 0.8em;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  width: 400px;
+  text-align: center;
+  transform: translateY(40px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.modal:not(.hidden) .modal-card {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---------- Tombol ---------- */
+.btn {
+  font-size: 0.9em;
+  background: var(--card);
+  color: var(--text);
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.25s;
+  z-index: 1;
+}
+
+.btn:hover { background: var(--hover); }
+.btn:active { transform: scale(0.98); }
+.primary, .primary:hover { background: var(--accent); color: #111; }
+
+/* ---------- Animasi ---------- */
+
+@keyframes inputFlash {
+  0%, 50% { background: rgba(255, 216, 0, 0.25); box-shadow: 0 0 0 3px var(--accent);}
+  100% { background: transparent; }
+}
+
+@keyframes displayFlash {
+  0%, 50% { border-color: var(--success); }
+  100% { border-color: var(--card); }
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+@keyframes cursor { 50% { border-color: transparent}}
+
+@keyframes typing {
+  from {width: 0}
+}
+
+/* ================= Consistent form controls & scrollbars ================= */
+input:focus {
+  outline:none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 216, 0, 0.25);
+}
+
+/* ================= Consistent Scrollbar & Dropdown (Chromium Only) ================= */
+@supports (-webkit-appearance: none) {
+
+  /* ----------- SCROLLBAR STYLING ----------- */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--card);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 0.3);
+    border-radius: 10px;
+    border: 2px solid var(--card);
+    background-clip: content-box;
+    transition: background 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 100, 100, 0.45);
+  }
+
+  body.theme-dark ::-webkit-scrollbar-thumb {
+    background: rgba(230, 230, 230, 0.25);
+    border-color: var(--card);
+  }
+  body.theme-dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(230, 230, 230, 0.4);
+  }
+
+  .settings-panel::-webkit-scrollbar {
+    width: 8px;
+  }
+}
+
+/* ---------- Reset umum ---------- */
+* { box-sizing: border-box; transition: background 0.25s, color 0.25s; }

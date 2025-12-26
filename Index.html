@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Writer</title>
+    <link rel="stylesheet" href="Assets/css/styles.css">
+</head>
+<body class="theme-light bgimg">
+    <div class="home-page">
+        <header>
+            <h1><span style="color: #ffd800">Speed</span> Writer</h1>
+        </header>
+        
+        <div class="home-menu">
+            <a href="Pages/main.html"><button class="btn" style="width: 15rem;">Start Test</button></a><br>
+            <button id="settingsBtn" class="btn" style="width: 15rem; margin-top: 4px;">Settings</button><br>
+            <button class="btn" style="width: 15rem; margin-top: 4px;">Tutorial</button><br>
+        </div>
+
+        <div class="type-container">
+            <p style="font-size: 0.7em; text-align: center;">Simple and minimal typing test. Practice and test your typing speed!</p>
+            <p class="text">Disclaimer: This website is not compatible for mobile devices, please use desktop or laptop, Thank you.</p>
+        </div>
+
+        <div id="settingsModal" class="modal hidden">
+            <div class="modal-card">
+                <h2 style="margin-bottom: 20px;">Settings</h2>
+                <div class="settings-box">
+                    <span>Language:</span>
+                    <button id="langBtn" class="btn">🇺🇸 English</button>
+                </div>
+                <div class="settings-box">
+                    <span>Font Size:</span>
+                    <select id="fontSize" class="btn">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+                <div class="settings-box">
+                    <span>Sound:</span>
+                    <button id="audioBtn" class="btn">🔇</button>
+                </div>
+                <div class="settings-box">
+                    <span>Theme:</span>
+                    <button id="themeBtn" class="btn">☀️</button>
+                </div>
+                <button id="closeSettings" class="btn primary" style="margin-top: 30px; width: 100%;">Save & Close</button>
+            </div>
+        </div>
+    </div>
+    <script src="Assets/script/config.js"></script>
+    <script src="Assets/script/setting.js"></script>
+</body>
+</html>

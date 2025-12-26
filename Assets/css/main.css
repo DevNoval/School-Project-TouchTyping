@@ -1,0 +1,200 @@
+/* ---------- Tata Letak Utama ---------- */
+.app {
+  max-width: 1080px;
+  margin: 32px auto;
+  padding: 20px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+}
+
+.app-header h1 {
+  color: var(--text);
+}
+
+.controls {
+  display: flex;
+  position: relative;
+  z-index: 10;
+  gap: 5px;
+}
+
+.counter {
+  font-size: 1.1em;
+  position: absolute;
+  top: -10px;
+}
+
+/* ---------- Panel Pengaturan ---------- */
+.settings-panel {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s, opacity 0.4s;
+  transform: translateX(10%);
+  z-index: 0;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.settings-panel.show {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0); /* Geser sedikit ke bawah */
+  z-index: 0;
+}
+
+.settings-group {display: contents;}
+
+/* ---------- Area Tes ---------- */
+.main { display: flex; gap: 20px; margin-top: 20px; }
+.test-area { flex: 1; }
+
+.words-container {
+  min-height: 140px;
+  border: 2px solid var(--card);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--card);
+  overflow: hidden;
+  position: relative;
+}
+
+.word {
+  padding: 4px 6px;
+  margin-right: 6px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: var(--word-font-size);
+}
+
+.word.current { background: var(--accent); color: #111; }
+.word.correct { color: var(--success); }
+.word.wrong { color: var(--danger); }
+.words-container.display-flash { animation: displayFlash 1s ease-out 1; }
+
+/* ---------- Caret & Input ---------- */
+.caret {
+  position:absolute;
+  margin-top: 4px;
+  height: var(--word-font-size);
+  width: calc(var(--input-font-size) * 0.1);;
+  background: var(--text);
+  animation: blink 1s infinite;
+  transition: top 0.1s ease, left 0.1s ease;
+}
+
+.typing-input {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-size: var(--input-font-size);
+  transition: box-shadow 0.12s, border-color 0.12s;
+}
+
+.typing-input.input-wrong {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.06);
+  background: rgba(239, 68, 68, 0.5);
+}
+
+.typing-input.input-flash { animation: inputFlash 1s ease-out 1; }
+
+/* ---------- Skor ---------- */
+.score-item {
+  background: var(--card);
+  font-size: 1.2em;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  width: 400px;
+  text-align: center;
+  transform: translateY(40px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.modal:not(.hidden) .score-item {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.score-item.score-flash { animation: scoreFlash 1s ease-out 1; }
+.score-highlight { border: 2px solid var(--accent); }
+
+/* ---------- Footer ---------- */
+.footer { text-align: center; position: relative; margin-top: 12px;}
+.hidden-element { display: none !important; }
+
+
+/* ---------- Ukuran Font ---------- */
+.font-small { --word-font-size: 1.2em; --input-font-size: 0.9em; }
+.font-medium { --word-font-size: 1.5em; --input-font-size: 1.1em; }
+.font-large { --word-font-size: 2em; --input-font-size: 1.3em; }
+
+/* ---------- Responsif ---------- */
+@media (max-width: 1080px) {
+  .main { flex-direction: column; }
+  .modal { width: 100%; }
+  .control { flex-wrap: wrap;}
+  .modal-content {padding-inline: 5%;}
+}
+
+@media (max-width: 720px) {
+  body { font-size:1em; }
+.app-header { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding-bottom: 5px;
+  }
+  
+  h1 { 
+    margin: 0; 
+    width: 100%; 
+  }
+  
+  .counter {
+    width: 100%;
+    font-size: 0.9em;
+    top: 0;
+  }
+
+  .controls { 
+    width: 100%; 
+    justify-content: flex-end;
+    flex-wrap: wrap; 
+  }
+  
+  .settings-panel { 
+    top: 100%; 
+    right: 0; 
+    left: auto; 
+    min-width: 250px;
+    position: absolute; 
+    background: var(--card); 
+    margin-top: 16px;
+    justify-content: space-between;
+    transform: translateY(-10%);
+  }
+  
+  .settings-group {
+    width: 48%;
+    margin-bottom: 5px; 
+  }
+  
+  .settings-group .btn, 
+  .settings-group select {
+    width: 100%; 
+  }
+}
