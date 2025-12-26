@@ -180,7 +180,7 @@ modeSelect.addEventListener('change', toggleModeSelect);
 
 /* ---------- Load Data & Init ---------- */
 async function loadWordData() {
-  try { WORD_DATA = await (await fetch("../Assets/Data/data.json")).json(); }
+  try { WORD_DATA = await (await fetch("../Assets/data/data.json")).json(); }
   catch (error) { console.error("Gagal memuat data:", error); }
 }
 
@@ -204,3 +204,4 @@ window.addEventListener("DOMContentLoaded", async () => {
   langBtn.textContent = STATE.language === "id" ? "🇮🇩 Bahasa" : "🇺🇸 English";
   updateCountSelectOptions(); updateFooter();
 });
+
