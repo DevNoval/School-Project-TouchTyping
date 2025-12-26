@@ -34,9 +34,9 @@ const STATE = {
 };
 
 let WORD_DATA = null;
-let typeSound = new Audio("../Assets/Audio/pop.mp3")
-let winningSound= new Audio("../Assets/Audio/winning8bit.mp3")
-let errorSound = new Audio("../Assets/Audio/spaceBarClick.mp3")
+let typeSound = new Audio("../Assets/audio/pop.mp3")
+let winningSound= new Audio("../Assets/audio/winning8bit.mp3")
+let errorSound = new Audio("../Assets/audio/spaceBarClick.mp3")
 
 /* ---------- DOM refs ---------- */
 const wordsContainer = document.getElementById('wordsContainer');
@@ -59,4 +59,5 @@ const closeBtn = document.getElementById('closeBtn');
 const warningModal = document.getElementById('warningModal');
 const footerLangToggle = document.getElementById('footerLang');
 const scoreboard = document.querySelectorAll('.score-item');
+
 const closeSettingsBtn = document.getElementById('closeSettings');
